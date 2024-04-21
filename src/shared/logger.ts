@@ -8,14 +8,14 @@ const MongoTransport = new winston.transports.MongoDB({
   options: { useUnifiedTopology: true },
   format: winston.format.combine(
     winston.format.timestamp(),
-    winston.format.json(),
+    winston.format.json()
   ),
 });
 
 const ConsoleTransport = new winston.transports.Console({
   format: winston.format.combine(
     winston.format.colorize(),
-    winston.format.simple(),
+    winston.format.simple()
   ),
 });
 
