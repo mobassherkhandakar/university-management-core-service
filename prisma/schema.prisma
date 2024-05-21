@@ -12,7 +12,82 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Mobassher {
-  id String @id @default(uuid())
-  name String
+
+model AcademicSemester {
+  id         String    @id @default(uuid())
+  year       Int
+  title      String
+  code       String
+  startMonth String
+  endMonth   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  students   Student[]
+
+  @@map("academic-semesters")
+}
+
+model AcademicFaculty {
+  id                  String               @id @default(uuid())
+  title               String
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  academicDepartments AcademicDepartment[]
+  faculties           Faculty[]
+
+  @@map("academic-facultys")
+}
+
+model AcademicDepartment {
+  id                String          @id @default(uuid())
+  title             String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  academicFacultyId String
+  students          Student[]
+  academicFaculties AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+  faculties         Faculty[]
+
+  @@map("academic-departments")
+}
+
+model Student {
+  id                   String             @id @default(uuid())
+  studentId            String
+  firstName            String
+  lastName             String
+  middlename           String
+  profileImage         String
+  email                String
+  contactNo            String
+  gender               String
+  bloodgroup           String
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  academicSemesterId   String
+  academicSemester     AcademicSemester   @relation(fields: [academicSemesterId], references: [id])
+  academicDepartmentId String
+  academicDepartments  AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
+
+  @@map("students")
+}
+
+model Faculty {
+  id                   String             @id @default(uuid())
+  facultyId            String
+  firstName            String
+  lastName             String
+  middleName           String
+  profileImage         String
+  email                String
+  contactNo            String
+  gender               String
+  bloodgroup           String
+  desigination         String
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @default(now())
+  academicDepartmentId String
+  academicFacultyId    String
+  academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
+  academicFaculty      AcademicFaculty    @relation(fields: [academicFacultyId], references: [id])
 }
