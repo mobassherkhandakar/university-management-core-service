@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AcademicSemester } from '@prisma/client';
+import { AcademicSemester, Prisma } from '@prisma/client';
 import {
   SortOrder,
   paginationHelpers,
@@ -49,7 +49,8 @@ const getAllFromDB = async (
   if (sortBy && sortOrder) {
     sortCondition[sortBy] = sortOrder as SortOrder;
   }
-  const whereCondition = andCondition.length > 0 ? { AND: andCondition } : {};
+  const whereCondition: Prisma.AcademicSemesterWhereInput =
+    andCondition.length > 0 ? { AND: andCondition } : {};
 
   const result = await prisma.academicSemester.findMany({
     where: whereCondition,
@@ -68,7 +69,17 @@ const getAllFromDB = async (
   };
 };
 
+const getDataById = async (id: string): Promise<AcademicSemester | null> => {
+  const result = await prisma.academicSemester.findUnique({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
 export const AcademicSemesterService = {
   insertIntoDB,
   getAllFromDB,
+  getDataById,
 };
