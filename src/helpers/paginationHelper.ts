@@ -4,7 +4,7 @@ type IOptions = {
   sortBy?: string;
   sortOrder?: string;
 };
-
+export type SortOrder = 'asc' | 'desc';
 type IOptionsResult = {
   page: number;
   limit: number;
