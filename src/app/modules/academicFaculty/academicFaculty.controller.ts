@@ -35,18 +35,18 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getDataById = catchAsync(async (req: Request, res: Response) => {
-//   const result = await AcademicFacultyService.getDataById(req.params.id);
-//   sendResponse<AcademicFaculty | null>(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Get single Semester data',
-//     data: result,
-//   });
-// });
+const getDataById = catchAsync(async (req: Request, res: Response) => {
+  const result = await AcademicFacultyService.getDataById(req.params.id);
+  sendResponse<AcademicFaculty | null>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Get single Semester data',
+    data: result,
+  });
+});
 
 export const AcademicFacultyController = {
   InsertIntoDB,
   getAllFromDB,
-  // getDataById,
+  getDataById,
 };
