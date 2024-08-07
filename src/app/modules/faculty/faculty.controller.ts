@@ -18,3 +18,4 @@ const InsertIntoDB = catchAsync(async (req: Request, res: Response) => {
 export const FacultyController = {
   InsertIntoDB,
 };
+console.log('hello');
