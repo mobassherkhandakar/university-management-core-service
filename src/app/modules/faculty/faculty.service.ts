@@ -5,6 +5,7 @@ const InsertIntoDB = async (data: Faculty): Promise<Faculty> => {
   const result = await prisma.faculty.create({
     data,
   });
+
   return result;
 };
 

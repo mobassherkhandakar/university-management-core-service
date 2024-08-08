@@ -39,7 +39,7 @@ CREATE TABLE "students" (
     "studentId" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "middlename" TEXT NOT NULL,
+    "middleName" TEXT NOT NULL,
     "profileImage" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "contactNo" TEXT NOT NULL,

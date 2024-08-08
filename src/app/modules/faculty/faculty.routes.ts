@@ -5,4 +5,4 @@ const router = express.Router();
 // router.get('/:id', FacultyController.getDataById);
 router.post('/', FacultyController.InsertIntoDB);
 
-export const AcademicDepartmentRouter = router;
+export const FacultyRouter = router;

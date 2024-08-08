@@ -56,7 +56,7 @@ model Student {
   studentId            String
   firstName            String
   lastName             String
-  middlename           String
+  middleName           String
   profileImage         String
   email                String
   contactNo            String
