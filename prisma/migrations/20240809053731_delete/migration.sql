@@ -49,6 +49,7 @@ CREATE TABLE "students" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "academicSemesterId" TEXT NOT NULL,
     "academicDepartmentId" TEXT NOT NULL,
+    "academicFacultyId" TEXT NOT NULL,
 
     CONSTRAINT "students_pkey" PRIMARY KEY ("id")
 );
@@ -82,6 +83,9 @@ ALTER TABLE "students" ADD CONSTRAINT "students_academicSemesterId_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "students" ADD CONSTRAINT "students_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic-departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "students" ADD CONSTRAINT "students_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic-facultys"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Faculty" ADD CONSTRAINT "Faculty_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic-departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
