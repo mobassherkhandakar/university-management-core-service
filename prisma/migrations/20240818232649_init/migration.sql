@@ -55,7 +55,7 @@ CREATE TABLE "students" (
 );
 
 -- CreateTable
-CREATE TABLE "Faculty" (
+CREATE TABLE "faculties" (
     "id" TEXT NOT NULL,
     "facultyId" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
@@ -72,7 +72,29 @@ CREATE TABLE "Faculty" (
     "academicDepartmentId" TEXT NOT NULL,
     "academicFacultyId" TEXT NOT NULL,
 
-    CONSTRAINT "Faculty_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "faculties_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "buildings" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "buildings_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "rooms" (
+    "id" TEXT NOT NULL,
+    "roomNumber" TEXT NOT NULL,
+    "floor" TEXT NOT NULL,
+    "buildingId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "rooms_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
@@ -88,7 +110,10 @@ ALTER TABLE "students" ADD CONSTRAINT "students_academicDepartmentId_fkey" FOREI
 ALTER TABLE "students" ADD CONSTRAINT "students_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic-facultys"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Faculty" ADD CONSTRAINT "Faculty_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic-departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "faculties" ADD CONSTRAINT "faculties_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic-departments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Faculty" ADD CONSTRAINT "Faculty_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic-facultys"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "faculties" ADD CONSTRAINT "faculties_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic-facultys"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "rooms" ADD CONSTRAINT "rooms_buildingId_fkey" FOREIGN KEY ("buildingId") REFERENCES "buildings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

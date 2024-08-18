@@ -93,6 +93,7 @@ model Faculty {
   academicFacultyId    String
   academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
   academicFaculty      AcademicFaculty    @relation(fields: [academicFacultyId], references: [id])
+  @@map("faculties")
 }
 
 model Building {
@@ -101,6 +102,7 @@ model Building {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   rooms     Room[]
+  @@map("buildings")
 }
 
 model Room {
@@ -111,4 +113,5 @@ model Room {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   building   Building @relation(fields: [buildingId], references: [id])
+  @@map("rooms")
 }
