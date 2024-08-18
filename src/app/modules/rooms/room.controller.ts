@@ -29,7 +29,17 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+const getDataById = catchAsync(async (req: Request, res: Response) => {
+  const result = await RoomService.getDataById(req.params.id);
+  sendResponse<Room>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room single Data retrieved',
+    data: result,
+  });
+});
 export const RoomController = {
   insertIntoDB,
   getAllFromDB,
+  getDataById,
 };
