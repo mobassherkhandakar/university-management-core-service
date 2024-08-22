@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Course } from '@prisma/client';
+import { Course, CourseFaculty } from '@prisma/client';
 import ApiError from '../../../errors/ApiError';
 import {
   paginationHelpers,
@@ -63,7 +63,6 @@ const insertIntoDB = async (data: ICourseData): Promise<any> => {
   }
   throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to create course');
 };
-
 const getAllFromDB = async (
   pagination: IPaginationOptions,
   filters: ICourseFilterAblField
@@ -201,9 +200,53 @@ const updateOneInDB = async (id: string, payload: ICourseData) => {
   });
   return responseData;
 };
+const assinendFaculty = async (id: string, payload: string[]) => {
+  await prisma.courseFaculty.createMany({
+    data: payload.map(facultyId => ({
+      courseId: id,
+      facultyId: facultyId,
+    })),
+  });
+  const assignFacultiesData = await prisma.courseFaculty.findMany({
+    where: {
+      courseId: id,
+    },
+    include: {
+      Faculty: true,
+    },
+  });
+
+  return assignFacultiesData;
+};
+const removeFaculties = async (
+  id: string,
+  payload: string[]
+): Promise<CourseFaculty[] | null> => {
+  await prisma.courseFaculty.deleteMany({
+    where: {
+      courseId: id,
+      facultyId: {
+        in: payload,
+      },
+    },
+  });
+
+  const assignFacultiesData = await prisma.courseFaculty.findMany({
+    where: {
+      courseId: id,
+    },
+    include: {
+      Faculty: true,
+    },
+  });
+
+  return assignFacultiesData;
+};
 
 export const CourseService = {
   insertIntoDB,
   updateOneInDB,
   getAllFromDB,
+  assinendFaculty,
+  removeFaculties,
 };
